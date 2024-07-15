@@ -5,9 +5,7 @@ import com.gabrielvicente.url_minimizer.response.MinimizedUrlResponse;
 import com.gabrielvicente.url_minimizer.service.UrlMinizerService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UrlMinimizerController {
@@ -22,5 +20,10 @@ public class UrlMinimizerController {
     public ResponseEntity<MinimizedUrlResponse> minimizeUrl(@RequestBody MinimizeUrlRequest request, HttpServletRequest servletRequest) {
         MinimizedUrlResponse minimizedUrl = service.minimizeUrl(request, servletRequest);
         return ResponseEntity.ok(minimizedUrl);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Void> redirectToOriginalUrl(@PathVariable String id) {
+        return service.redirectToOriginalUrl(id);
     }
 }
